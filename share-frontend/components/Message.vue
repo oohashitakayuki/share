@@ -4,8 +4,8 @@
     <p>{{ message.post }}</p>
 
     <img
+      v-if="isMyPost"
       src="/icons/cross.png"
-      alt="delete"
       class="delete-btn"
       @click="deletePost"
     />
@@ -13,9 +13,21 @@
 </template>
 
 <script>
+import { auth } from '~/plugins/firebase'
+
 export default {
   props: {
     message: Object
+  },
+
+  computed: {
+    isMyPost() {
+      const user = auth.currentUser
+      if (!user) return false
+
+      // Laravelのuser.idとFirebase UIDを紐付けている前提
+      return this.message.user.firebase_uid === user.uid
+    }
   },
 
   methods: {
@@ -25,7 +37,7 @@ export default {
       await this.$axios.delete(`/api/posts/${this.message.id}`)
 
       // 親へ通知（再取得）
-      this.$emit('post-deleted')
+      this.$root.$emit('post-created')
     }
   }
 }
