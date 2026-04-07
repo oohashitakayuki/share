@@ -1,7 +1,14 @@
 <template>
   <div class="message">
     <p>{{ message.user.name }}</p>
-    <p>{{ message.post }}</p>
+
+    <div class="like-area" @click="toggleLike">
+      <img
+        src="/icons/heart.png"
+        class="like-btn"
+      />
+      <span>{{ likesCount }}</span>
+    </div>
 
     <img
       v-if="isMyPost"
@@ -9,6 +16,8 @@
       class="delete-btn"
       @click="deletePost"
     />
+
+    <p>{{ message.post }}</p>
   </div>
 </template>
 
@@ -18,6 +27,13 @@ import { auth } from '~/plugins/firebase'
 export default {
   props: {
     message: Object
+  },
+
+  data() {
+    return {
+      isLiked: this.message.is_liked,
+      likesCount: this.message.likes_count
+    }
   },
 
   computed: {
@@ -31,6 +47,20 @@ export default {
   },
 
   methods: {
+    async toggleLike() {
+      if (this.isLiked) {
+        // いいね解除
+        await this.$axios.delete(`/api/posts/${this.message.id}/unlike`)
+        this.isLiked = false
+        this.likesCount--
+      } else {
+        // いいね
+        await this.$axios.post(`/api/posts/${this.message.id}/like`)
+        this.isLiked = true
+        this.likesCount++
+      }
+    },
+
     async deletePost() {
       if (!confirm('削除しますか？')) return
 
@@ -50,6 +80,15 @@ body {
 
 p {
   color: #FFF;
+}
+
+span {
+  color: #FFF;
+  }
+
+.like-btn {
+  width: 20px;
+  cursor: pointer;
 }
 
 .delete-btn {
