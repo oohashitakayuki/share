@@ -10,7 +10,17 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::with('user')->latest()->get();
+        $user = Auth::user();
+
+        $posts = Post::with('user')
+            ->withCount('likes') // ← いいね数
+            ->latest()
+            ->get()
+            ->map(function ($post) use ($user) {
+                $post->is_liked = $user->is_like($post->id); // ← いいね済みか
+                return $post;
+            });
+
         return response()->json($posts);
     }
 
