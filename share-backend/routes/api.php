@@ -22,6 +22,7 @@ Route::post('/register',[AuthController::class,'register']);
 Route::middleware('firebase.auth')->group(function(){
   Route::post('/login',[AuthController::class,'login']);
   Route::get('/posts', [PostController::class, 'index']);
+  Route::get('/posts/{id}', [PostController::class, 'show']);
   Route::post('/posts', [PostController::class, 'store']);
   Route::delete('/posts/{id}', [PostController::class, 'destroy']);
   Route::post('/posts/{postId}/like', [LikeController::class, 'store']);
