@@ -6,6 +6,7 @@
       v-for="msg in messages"
       :key="msg.id"
       :message="msg"
+      :showDetailButton="true"
       @post-deleted="fetchPosts"
     />
   </div>
