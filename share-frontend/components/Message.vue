@@ -17,6 +17,16 @@
       @click="deletePost"
     />
 
+    <NuxtLink
+      v-if="showDetailButton"
+      :to="`/posts/${message.id}`"
+    >
+      <img
+        src="/icons/detail.png"
+        class="detail-btn"
+      />
+    </NuxtLink>
+
     <p>{{ message.post }}</p>
   </div>
 </template>
@@ -26,7 +36,11 @@ import { auth } from '~/plugins/firebase'
 
 export default {
   props: {
-    message: Object
+    message: Object,
+    showDetailButton: {
+      type: Boolean,
+      default: true
+    }
   },
 
   data() {
@@ -92,6 +106,11 @@ span {
 }
 
 .delete-btn {
+  width: 20px;
+  cursor: pointer;
+}
+
+.detail-btn {
   width: 20px;
   cursor: pointer;
 }
