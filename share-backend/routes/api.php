@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
 use Illuminate\Http\Request;
@@ -22,9 +23,8 @@ Route::post('/register',[AuthController::class,'register']);
 Route::middleware('firebase.auth')->group(function(){
   Route::post('/login',[AuthController::class,'login']);
   Route::get('/posts', [PostController::class, 'index']);
-  Route::get('/posts/{id}', [PostController::class, 'show']);
   Route::post('/posts', [PostController::class, 'store']);
   Route::delete('/posts/{id}', [PostController::class, 'destroy']);
-  Route::post('/posts/{postId}/like', [LikeController::class, 'store']);
-  Route::delete('/posts/{postId}/unlike', [LikeController::class, 'destroy']);
+  Route::post('/likes', [LikeController::class, 'store']);
+  Route::delete('/unlikes', [LikeController::class, 'destroy']);
 });
