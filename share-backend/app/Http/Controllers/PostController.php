@@ -13,11 +13,12 @@ class PostController extends Controller
         $user = Auth::user();
 
         $posts = Post::with('user')
-            ->withCount('likes') // ← いいね数
-            ->latest()
+            ->withCount('likes')
             ->get()
             ->map(function ($post) use ($user) {
-                $post->is_liked = $user->is_like($post->id); // ← いいね済みか
+                $post->is_liked = $post->likes()
+                    ->where('user_id', $user->id)
+                    ->exists();
                 return $post;
             });
 
