@@ -21,20 +21,7 @@ class PostController extends Controller
                 return $post;
             });
 
-    return response()->json($posts);
-    }
-
-    public function show($id)
-    {
-        $user = Auth::user();
-
-        $post = Post::with('user')
-            ->withCount('likes')
-            ->findOrFail($id);
-
-        $post->is_liked = $user->is_like($post->id);
-
-        return response()->json($post);
+        return response()->json($posts);
     }
 
     public function store(Request $request)
