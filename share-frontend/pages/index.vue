@@ -7,7 +7,6 @@
       :key="msg.id"
       :message="msg"
       :showDetailButton="true"
-      @post-deleted="fetchPosts"
     />
   </div>
 </template>
