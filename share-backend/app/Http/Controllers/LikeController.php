@@ -8,30 +8,25 @@ use Illuminate\Support\Facades\Auth;
 
 class LikeController extends Controller
 {
-    public function store($postId)
+    public function store(Request $request)
     {
         $user = Auth::user();
 
-        if (!$user->is_like($postId)) {
-            $user->likes()->create([
-                'post_id' => $postId,
-            ]);
-        }
+        Like::firstOrCreate([
+            'user_id' => $user->id,
+            'post_id' => $request->post_id
+        ]);
 
         return response()->json(['message' => 'liked']);
     }
 
-    public function destroy($postId)
+    public function destroy(Request $request)
     {
         $user = Auth::user();
 
-        $like = Like::where('post_id', $postId)
-            ->where('user_id', $user->id)
-            ->first();
-
-        if($like) {
-            $like->delete();
-        }
+        Like::where('user_id', $user->id)
+            ->where('post_id', $request->post_id)
+            ->delete();
 
         return response()->json(['message' => 'unliked']);
     }
