@@ -98,9 +98,4 @@ span {
   width: 20px;
   cursor: pointer;
 }
-
-.detail-btn {
-  width: 20px;
-  cursor: pointer;
-}
 </style>
