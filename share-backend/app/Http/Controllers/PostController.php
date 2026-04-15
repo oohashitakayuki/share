@@ -31,6 +31,9 @@ class PostController extends Controller
 
         $post = Post::with('user')
             ->withCount('likes')
+            ->with(['comments.user' => function ($query) {
+                $query->latest(); // ← 最新のコメントを表示
+            }])
             ->findOrFail($id);
 
         $post->is_liked = $post->likes()
