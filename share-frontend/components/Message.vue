@@ -16,6 +16,13 @@
       @click="deletePost"
     />
 
+    <img
+      v-if="showDetailButton"
+      src="/icons/detail.png"
+      class="detail-btn"
+      @click="goToDetail"
+    />
+
     <p>{{ message.post }}</p>
   </div>
 </template>
@@ -25,7 +32,11 @@ import { auth } from '~/plugins/firebase'
 
 export default {
   props: {
-    message: Object
+    message: Object,
+    showDetailButton: {
+      type: Boolean,
+      default: true
+    }
   },
 
   data() {
@@ -71,6 +82,10 @@ export default {
 
       // 親へ通知（再取得）
       this.$root.$emit('post-created')
+    },
+
+    goToDetail() {
+      this.$router.push(`/posts/${this.message.id}`)
     }
   }
 }
@@ -95,6 +110,11 @@ span {
 }
 
 .delete-btn {
+  width: 20px;
+  cursor: pointer;
+}
+
+.detail-btn {
   width: 20px;
   cursor: pointer;
 }
