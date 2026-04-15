@@ -14,6 +14,7 @@ class PostController extends Controller
 
         $posts = Post::with('user')
             ->withCount('likes')
+            ->latest()
             ->get()
             ->map(function ($post) use ($user) {
                 $post->is_liked = $post->likes()
