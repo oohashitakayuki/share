@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AuthRequest;
 use App\Models\User;
 use App\Services\FirebaseService;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
-    public function register(Request $request, FirebaseService $firebase)
+    public function register(AuthRequest $request, FirebaseService $firebase)
     {
         $token = $request->bearerToken();
 
