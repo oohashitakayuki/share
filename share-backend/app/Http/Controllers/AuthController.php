@@ -16,8 +16,6 @@ class AuthController extends Controller
 
         $uid = $verifiedIdToken->claims()->get('sub');
 
-        $user = User::where('firebase_uid', $uid)->first();
-
         $user = User::updateOrCreate(
             ['firebase_uid' => $uid],
             [
