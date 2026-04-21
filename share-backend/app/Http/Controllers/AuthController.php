@@ -18,13 +18,13 @@ class AuthController extends Controller
 
         $user = User::where('firebase_uid', $uid)->first();
 
-        if (!$user) {
-            $user = User::create([
-                'firebase_uid' => $uid,
-                'name' => $request->name,
-                'email' => $request->email,
-            ]);
-        }
+        $user = User::updateOrCreate(
+            ['firebase_uid' => $uid],
+            [
+                'name'=>$request->name,
+                'email'=>$request->email
+            ]
+        );
 
         return response()->json($user);
     }
