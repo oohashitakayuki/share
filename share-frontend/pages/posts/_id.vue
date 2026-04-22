@@ -18,10 +18,17 @@
         </div>
       </div>
 
-      <div>
-        <input v-model="newComment" />
-        <button @click="submitComment">コメント</button>
-      </div>
+      <ValidationObserver v-slot="{ invalid }">
+        <div>
+          <ValidationProvider name="コメント内容" rules="required|max:120" v-slot="{ errors }">
+            <input v-model="newComment" />
+            <p>{{ errors[0] }}</p>
+          </ValidationProvider>
+
+          <button :disabled="invalid" @click="submitComment">コメント</button>
+
+        </div>
+      </ValidationObserver>
     </div>
   </div>
 </template>
