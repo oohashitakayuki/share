@@ -7,10 +7,17 @@
       </ul>
     </nav>
 
-    <div>
-      <textarea v-model="post"></textarea>
-      <button @click="submitPost">シェアする</button>
-    </div>
+    <ValidationObserver v-slot="{ invalid }">
+      <div>
+        <ValidationProvider name="投稿内容" rules="required|max:120" v-slot="{ errors }">
+          <textarea v-model="post"></textarea>
+          <p>{{ errors[0] }}</p>
+        </ValidationProvider>
+
+        <button :disabled="invalid" @click="submitPost">シェアする</button>
+
+      </div>
+    </ValidationObserver>
   </aside>
 </template>
 
@@ -30,8 +37,6 @@ export default {
     },
 
     async submitPost() {
-      if (!this.post) return
-
       await this.$axios.post('/api/posts', {
         post: this.post
       })
