@@ -30,7 +30,8 @@ export default {
   plugins: [
     '~/plugins/firebase.js',
     '~/plugins/auth.js',
-    '~/plugins/axios.js'
+    '~/plugins/axios.js',
+    '~/plugins/vee-validate.js'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
