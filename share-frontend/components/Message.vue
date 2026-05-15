@@ -1,29 +1,32 @@
 <template>
   <div class="message">
-    <p>{{ message.user.name }}</p>
+    <div class="message__header">
+      <div class="message__user">
+        <img src="/icons/profile.png" class="message__user-profile">
+        <p class="message__user-name">{{ message.user.name }}</p>
+      </div>
 
-    <img
-      src="/icons/heart.png"
-      class="like-btn"
-      @click="toggleLike"
-    />
-    <span>{{ likesCount }}</span>
+      <div class="message__actions">
+        <img src="/icons/heart.png" class="message__like-button message__icon" @click="toggleLike">
+        <span class="message__like-count">{{ likesCount }}</span>
 
-    <img
-      v-if="isMyPost"
-      src="/icons/cross.png"
-      class="delete-btn"
-      @click="deletePost"
-    />
+        <img
+          v-if="isMyPost"
+          src="/icons/cross.png"
+          class="message__delete-button message__icon"
+          @click="deletePost"
+        />
 
-    <img
-      v-if="showDetailButton"
-      src="/icons/detail.png"
-      class="detail-btn"
-      @click="goToDetail"
-    />
+        <img
+          v-if="showDetailButton"
+          src="/icons/detail.png"
+          class="message__detail-link message__icon"
+          @click="goToDetail"
+        />
+      </div>
+    </div>
 
-    <p>{{ message.post }}</p>
+    <p class="message__text">{{ message.post }}</p>
   </div>
 </template>
 
@@ -91,31 +94,58 @@ export default {
 }
 </script>
 
-<style>
-body {
-  background: #000;
+<style scoped>
+.message {
+  padding: 10px;
+  border-bottom: 1px solid #FFF;
+  border-left: 1px solid #FFF;
 }
 
-p {
-  color: #FFF;
+.message__header {
+  height: 30px;
+  display: flex;
+  align-items: center;
 }
 
-span {
-  color: #FFF;
-  }
+.message__user {
+  display: flex;
+  align-items: center;
+}
 
-.like-btn {
+.message__user-profile {
+  width: 20px;
+  margin-right: 7px;
+}
+
+.message__user-name {
+  font-weight: bold;
+}
+
+.message__actions {
+  display: flex;
+  align-items: center;
+}
+
+.message__icon {
   width: 20px;
   cursor: pointer;
 }
 
-.delete-btn {
-  width: 20px;
-  cursor: pointer;
+.message__like-button,
+.message__delete-button {
+  margin-left: 10px;
 }
 
-.detail-btn {
-  width: 20px;
-  cursor: pointer;
+.message__detail-link {
+  margin-left: 36px;
+}
+
+.message__like-count {
+  margin-left: 8px;
+}
+
+.message__text {
+  margin: 3px 0;
+  font-size: 15px;
 }
 </style>
