@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="auth wrapper">
     <AuthHeader />
 
     <Nuxt />
@@ -15,3 +15,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.auth {
+  display: flex;
+  justify-content: center;
+}
+</style>

@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <SideNav @post-created="handlePostCreated" />
+  <div class="common wrapper">
+    <SideNav class="common__sidenav" @post-created="handlePostCreated" />
 
-    <main>
+    <main class="common__content">
       <Nuxt />
     </main>
   </div>
@@ -24,3 +24,18 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.common {
+  display: flex;
+  color: #FFF;
+}
+
+.common__sidenav {
+  width: 360px;
+}
+
+.common__content {
+  width: 100%;
+}
+</style>
