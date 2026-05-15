@@ -1,12 +1,14 @@
 <template>
-  <div>
-    <p>ホーム</p>
+  <div class="home">
+    <p class="home__heading">ホーム</p>
 
-    <Message
-      v-for="msg in messages"
-      :key="msg.id"
-      :message="msg"
-    />
+    <div class="home__timeline">
+      <Message
+        v-for="msg in messages"
+        :key="msg.id"
+        :message="msg"
+      />
+    </div>
   </div>
 </template>
 
@@ -42,3 +44,14 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.home__heading {
+  margin: 0;
+  padding: 5px 10px;
+  font-size: 18px;
+  font-weight: bold;
+  border-bottom: 1px solid #FFF;
+  border-left: 1px solid #FFF;
+}
+</style>
