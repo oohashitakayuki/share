@@ -62,11 +62,6 @@ class PostController extends Controller
 
         $post = Post::findOrFail($id);
 
-        // 自分の投稿のみ削除可能にする
-        if ($post->user_id !== $user->id) {
-            return response()->json(['error' => 'Unauthorized'], 403);
-        }
-
         $post->delete();
 
         return response()->json(['message' => 'Deleted']);
