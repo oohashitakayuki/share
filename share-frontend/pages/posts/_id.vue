@@ -32,7 +32,7 @@
 
     </div>
 
-    <ValidationObserver v-slot="{ invalid }">
+    <ValidationObserver ref="observer" v-slot="{ invalid }">
       <div class="comment__form">
 
         <ValidationProvider
@@ -91,16 +91,16 @@ export default {
     async submitComment() {
       if (!this.newComment) return
 
-      try {
-        const res = await this.$axios.post('/api/comments', {
-          post_id: this.message.id,
-          comment: this.newComment
-        })
+      const res = await this.$axios.post('/api/comments', {
+        post_id: this.message.id,
+        comment: this.newComment
+      })
 
-        this.newComment = ''
-      } catch (e) {
-        console.error(e)
-      }
+      this.message.comments.unshift(res.data)
+
+      this.newComment = ''
+
+      this.$refs.observer.reset()
     }
   }
 }
@@ -158,7 +158,7 @@ export default {
 .comment__input {
   width: 96%;
   padding: 7px;
-  font-size: 16px;
+  font-size: 14px;
   color: #FFF;
   background: transparent;
   border: 1px solid #FFF;
