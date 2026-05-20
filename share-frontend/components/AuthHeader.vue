@@ -1,6 +1,6 @@
 <template>
   <header class="auth-header">
-    <img src="logo.png" class="auth-header__logo" />
+    <img src="/logo.png" class="auth-header__logo" />
 
     <nav class="auth-header__nav">
       <NuxtLink to="/register" class="auth-header__link">新規登録</NuxtLink>

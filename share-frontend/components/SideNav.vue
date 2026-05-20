@@ -1,6 +1,6 @@
 <template>
   <aside class="sidenav">
-    <img src="logo.png" class="sidenav__logo">
+    <img src="/logo.png" class="sidenav__logo">
 
     <nav class="sidenav__nav">
       <ul class="sidenav__list">
@@ -18,7 +18,7 @@
 
     <p class="sidenav__heading">シェア</p>
 
-    <ValidationObserver v-slot="{ invalid }">
+    <ValidationObserver ref="observer" v-slot="{ invalid }">
       <div class="sidenav__post">
         <ValidationProvider name="投稿内容" rules="required|max:120" v-slot="{ errors }">
           <textarea v-model="post" class="sidenav__textarea"></textarea>
@@ -63,6 +63,8 @@ export default {
       })
 
       this.post = ''
+
+      this.$refs.observer.reset()
 
       // 親へ通知（再取得）
       this.$emit('post-created')
@@ -121,7 +123,8 @@ export default {
 .sidenav__textarea {
   width: 100%;
   height: 120px;
-  font-size: 16px;
+  padding: 7px;
+  font-size: 14px;
   color: #FFF;
   background: transparent;
   border: 1px solid #FFF;
